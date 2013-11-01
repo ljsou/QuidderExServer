@@ -23,13 +23,21 @@ import javax.servlet.http.HttpServletResponse;
 public class QuidderListener implements Serializable {
 
     private static final long serialVersionUID = 8799656478674716638L;
-    private String url = "//";    
+    private String url = "//";
 
     public void gParameters() throws IOException {
         HttpServletRequest request = (HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest();
-        HttpServletResponse response = (HttpServletResponse) FacesContext.getCurrentInstance().getExternalContext().getResponse();        
-//        String url = (String) FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap().get("url");
-//        System.out.println("3. URL: " + url);
+        HttpServletResponse response = (HttpServletResponse) FacesContext.getCurrentInstance().getExternalContext().getResponse();
+      
+        String url = (String) FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap().get("url");
+        System.out.println("3. URL: " + url);
+
+        
+            System.out.println("url != null");
+            response.setContentType("text/html");
+            response.addHeader("nombre", "javier");
+            response.setStatus(response.SC_ACCEPTED);            
+        
 
 //        System.out.println("getAuthType: " + request.getAuthType()
 //                + "\n getContextPath: " + request.getContextPath()
@@ -60,9 +68,7 @@ public class QuidderListener implements Serializable {
                 }
             }
         }
-        response.setContentType("text/html");
-        response.addHeader("nombre", "javier");
-        response.setStatus(response.SC_ACCEPTED);
+
     }
 
     public String getUrl() {

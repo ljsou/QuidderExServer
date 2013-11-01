@@ -19,8 +19,7 @@ function Successfullylogin() {
         console.log("Data provider: " + data.FirstName);                   
         console.log("Data provider: " + data.ID);                   
         document.getElementById("userID").innerHTML = data.ID;
-         $("#userID").slideDown( "slow" );
-         $(".lr_facebook").attr("disabled", "disabled");
+         $("#userID").slideDown( "slow" );         
     });
 
     return false;
