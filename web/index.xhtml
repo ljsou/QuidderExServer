@@ -1,0 +1,22 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"      
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html">
+    <head>
+        <title>QuidderListener</title>
+        <link href='http://fonts.googleapis.com/css?family=Oxygen:300' rel='stylesheet' type='text/css'/>
+        <link href='css/quidder-listener.css' rel='stylesheet' type='text/css'/>                   
+    </head>
+    <body> 
+        <div class="qd-listener-box">
+            <img class="img1" href="#" src="images/listening2.jpg" width="150" height="150"></img>
+            <img class="img2" href="#" src="images/logo.png" width="40" height="40"></img>
+            <p class="qd-tittle">uidder Listener  </p>
+            <p class="qd-p">Quidder server for Chrome extension is listening...</p>
+            <h:form>
+                <f:viewParam name="url" value="#{quidderListener.gParameters()}"/>                                 
+            </h:form>
+        </div>  
+    </body>
+</html>

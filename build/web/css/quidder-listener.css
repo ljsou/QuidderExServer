@@ -1,0 +1,53 @@
+/* 
+    Document   : quidder-listener
+    Created on : 31/10/2013, 09:41:03 PM
+    Author     : Luis Javier Surez Meza <luisjavier.suarezmeza at gmail.com>
+    Description:
+        Purpose of the stylesheet follows.
+*/
+
+root { 
+    display: block;
+}
+
+body {
+    background: #eee;
+}
+
+.qd-listener-box {
+    border:#BDBDBD solid 1px; border-radius: 10px;             
+    width: 50%;
+    height: 185px;
+    position: absolute;
+    top: 30%;
+    left: 25%;
+    text-align: center;
+    overflow: visible;
+    background: #fff;
+    font-family: 'Oxygen', sans-serif;
+}
+
+.img1 {
+    float: right; 
+    margin: 30px 10px 5px 10px;
+}
+
+.img2 {
+    float: left;
+    margin: 10px 0px 5px 10px;
+}
+
+.qd-tittle {
+    float: left; 
+    margin: 10px 0px 5px 0px; 
+    font-size: 30px; 
+    color: #BDBDBD; 
+    letter-spacing: -3px;
+}
+
+.qd-p {
+    float: left; 
+    margin: -3px 200px 0px 20px; 
+    color: #000; 
+    font-size: 10px;
+}
