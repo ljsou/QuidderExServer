@@ -24,20 +24,36 @@ public class QuidderListener implements Serializable {
 
     private static final long serialVersionUID = 8799656478674716638L;
     private String url = "//";
+    private int responseType = 401;
 
     public void gParameters() throws IOException {
         HttpServletRequest request = (HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest();
         HttpServletResponse response = (HttpServletResponse) FacesContext.getCurrentInstance().getExternalContext().getResponse();
-      
-        String url = (String) FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap().get("url");
-        System.out.println("3. URL: " + url);
+//        String url = (String) FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap().get("url");
+//        System.out.println("3. URL: " + url);       
 
-        
-            System.out.println("url != null");
-            response.setContentType("text/html");
-            response.addHeader("nombre", "javier");
-            response.setStatus(response.SC_ACCEPTED);            
-        
+
+        switch (this.responseType) {
+            case 401:
+                System.out.println("401");
+                response.setContentType("text/html");
+                response.addHeader("nombre", "empty");
+                response.setStatus(response.SC_UNAUTHORIZED);
+                break;
+            case 200:
+                System.out.println("200 OK");
+                response.setContentType("text/html");
+                response.addHeader("nombre", "javier");
+                response.setStatus(response.SC_OK);
+                this.responseType = 401;
+                break;
+            case 202:
+                System.out.println("202 Continue");
+                response.setContentType("text/html");
+                response.setStatus(response.SC_ACCEPTED);
+                this.responseType = 401;
+                break;
+        }
 
 //        System.out.println("getAuthType: " + request.getAuthType()
 //                + "\n getContextPath: " + request.getContextPath()
@@ -59,8 +75,12 @@ public class QuidderListener implements Serializable {
             String[] sMultiple = request.getParameterValues(sName);
             if (1 >= sMultiple.length) // parameter has a single value. print it.
             {
+                if ((request.getParameter("pin") != null) && validateUser(request.getParameter("pin"))) {
+                    System.out.println(sName + " = " + request.getParameter(sName));
+                    System.out.println("User is logged!");
+                    this.responseType = 202;
+                }
                 System.out.println(sName + " = " + request.getParameter(sName));
-                this.url = sName + " = " + request.getParameter(sName);
             } else {
                 for (int i = 0; i < sMultiple.length; i++) // if a paramater contains multiple values, print all of them
                 {
@@ -73,5 +93,14 @@ public class QuidderListener implements Serializable {
 
     public String getUrl() {
         return this.url;
+    }
+
+    public boolean validateUser(String userID) {
+        String uID = "1234";
+        boolean result = false;
+        if (userID.equalsIgnoreCase(uID)) {
+            result = true;
+        }
+        return result;
     }
 }
