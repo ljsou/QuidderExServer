@@ -1,4 +1,4 @@
-*.class
+.class
 
 nbproject/private/
 build/
@@ -8,6 +8,6 @@ nbdist/
 nbactions.xml
 nb-configuration.xml
 
-*.jar
-*.war
-*.ear
+.jar
+.war
+.ear
