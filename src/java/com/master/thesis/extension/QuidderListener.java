@@ -25,6 +25,7 @@ public class QuidderListener implements Serializable {
     private static final long serialVersionUID = 8799656478674716638L;
     private String url = "//";
     private int responseType = 401;
+    private String userID = null;
 
     public void gParameters() throws IOException {
         HttpServletRequest request = (HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest();
@@ -48,7 +49,7 @@ public class QuidderListener implements Serializable {
                 this.responseType = 401;
                 break;
             case 202:
-                System.out.println("202 Continue");
+                System.out.println("202 Acepted");
                 response.setContentType("text/html");
                 response.setStatus(response.SC_ACCEPTED);
                 this.responseType = 401;
@@ -73,14 +74,20 @@ public class QuidderListener implements Serializable {
         while (parameterList.hasMoreElements()) {
             String sName = parameterList.nextElement().toString();
             String[] sMultiple = request.getParameterValues(sName);
-            if (1 >= sMultiple.length) // parameter has a single value. print it.
+//            System.out.println("sName: " + sName);
+            if ((1 >= sMultiple.length)) // parameter has a single value. print it.
             {
-                if ((request.getParameter("pin") != null) && validateUser(request.getParameter("pin"))) {
+                if ((this.userID == null) && (validateUser(request.getParameter("pin")))) {
+                    this.userID = request.getParameter("pin");
+                    System.out.println("User " + this.userID + " is logged!");
                     System.out.println(sName + " = " + request.getParameter(sName));
-                    System.out.println("User is logged!");
                     this.responseType = 202;
+                }if (this.userID != null){
+                    System.out.println(sName + " = " + request.getParameter(sName));
+                    this.responseType = 200;
                 }
-                System.out.println(sName + " = " + request.getParameter(sName));
+
+//                System.out.println(sName + " = " + request.getParameter(sName));
             } else {
                 for (int i = 0; i < sMultiple.length; i++) // if a paramater contains multiple values, print all of them
                 {
