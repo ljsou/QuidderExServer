@@ -53,14 +53,14 @@ public class QuidderListener implements Serializable {
             case 200:
                 System.out.println("200 OK");
                 response.setContentType("text/html");
-                response.addHeader("Info:", "Saved!");
+                response.addHeader("Info", "Saved!");
                 response.setStatus(response.SC_OK);
                 this.responseType = 401;
                 break;
             case 202:
                 System.out.println("202 Acepted");
                 response.setContentType("text/html");
-                response.addHeader("Acepted:", "Welcome!");
+                response.addHeader("Acepted", "Welcome!");
                 response.setStatus(response.SC_ACCEPTED);
                 this.responseType = 401;
                 break;
