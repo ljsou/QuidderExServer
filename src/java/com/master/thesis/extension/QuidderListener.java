@@ -4,6 +4,7 @@
  */
 package com.master.thesis.extension;
 
+import com.master.thesis.control.MongoDB;
 import java.io.IOException;
 import java.io.Serializable;
 import java.util.Enumeration;
@@ -24,14 +25,20 @@ import javax.servlet.http.HttpServletResponse;
 @SessionScoped
 public class QuidderListener implements Serializable {
 
-    private static final long serialVersionUID = 8799656478674716638L;   
-    private int responseType = 401;    
+    private static final long serialVersionUID = 8799656478674716638L;
+    private int responseType;
+    private MongoDB mongoDB;
+
+    public QuidderListener() {
+        this.responseType = 401;
+        this.mongoDB = new MongoDB();
+    }
 
     public void gParameters() throws IOException {
         HttpServletRequest request = (HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest();
         HttpServletResponse response = (HttpServletResponse) FacesContext.getCurrentInstance().getExternalContext().getResponse();
         Map<String, String> parameters = new HashMap<String, String>();
-   
+
         switch (this.responseType) {
             case 401:
                 System.out.println("401 Unauthorized");
