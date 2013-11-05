@@ -10,6 +10,9 @@ import com.master.thesis.model.user.FacebookUser;
 import com.master.thesis.model.user.TwitterUser;
 import com.mongodb.BasicDBObject;
 import java.io.IOException;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.faces.bean.ManagedBean;
@@ -89,19 +92,9 @@ public class UserManagedBean {
                 if (twitterUserJson.equalsIgnoreCase("null")) {
                     this.mongoDB.insertDocumentIntoDB("quidderDB", "users", this.jsonUserDataProfile);
                     this.currentTwitterUser = twitterUser;
-//                    try {
-//                        FacesContext.getCurrentInstance().getExternalContext().redirect("homeTest.xhtml");
-//                    } catch (IOException ex) {
-//                        Logger.getLogger(UserManagedBean.class.getName()).log(Level.SEVERE, null, ex);
-//                    }
                 } else {
                     System.out.println("This twitter user already exists in the system");
                     this.currentTwitterUser = twitterUser;
-//                    try {
-//                        FacesContext.getCurrentInstance().getExternalContext().redirect("homeTest.xhtml");
-//                    } catch (IOException ex) {
-//                        Logger.getLogger(UserManagedBean.class.getName()).log(Level.SEVERE, null, ex);
-//                    }
                 }
             } else if (this.provider.equalsIgnoreCase("facebook")) {
 
@@ -116,23 +109,13 @@ public class UserManagedBean {
                 if (facebookUserJson.equalsIgnoreCase("null")) {
                     this.mongoDB.insertDocumentIntoDB("quidderDB", "users", this.jsonUserDataProfile);
                     this.currentFacebookUser = facebookUser;
-//                    try {
-//                        FacesContext.getCurrentInstance().getExternalContext().redirect("homeTest.xhtml");
-//                    } catch (IOException ex) {
-//                        Logger.getLogger(UserManagedBean.class.getName()).log(Level.SEVERE, null, ex);
-//                    }
                 } else {
                     System.out.println("This facebook user already exists in the system");
                     this.currentFacebookUser = facebookUser;
-//                    try {
-//                        FacesContext.getCurrentInstance().getExternalContext().redirect("homeTest.xhtml");
-//                    } catch (IOException ex) {
-//                        Logger.getLogger(UserManagedBean.class.getName()).log(Level.SEVERE, null, ex);
-//                    }
                 }
             }
         }
-    }
+    }        
 
     public String logout() {
         FacesContext.getCurrentInstance().getExternalContext().invalidateSession();

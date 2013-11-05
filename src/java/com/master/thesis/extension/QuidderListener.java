@@ -8,6 +8,9 @@ import com.master.thesis.control.MongoDB;
 import com.mongodb.BasicDBObject;
 import java.io.IOException;
 import java.io.Serializable;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.Map;
@@ -79,6 +82,7 @@ public class QuidderListener implements Serializable {
             }
             if (parameters.get("url") != null && parameters.get("summary") != null) {
                 System.out.println("-----200-----");
+                setUserGoalToResource(parameters.get("pin"), parameters.get("summary"), parameters.get("url"));
                 this.responseType = 200;
             }
         }
@@ -94,5 +98,38 @@ public class QuidderListener implements Serializable {
             result = true;
         }
         return result;
+    }
+
+    public void setUserGoalToResource(String currentUserID, String currentGoal, String currentResourceID) {
+        System.out.println("------>" + currentGoal + " - " + currentResourceID + " - " + currentUserID);
+        BasicDBObject gruDBObject = new BasicDBObject();
+        gruDBObject.put("GoalID", getGoalIdFromGoalsDB(currentGoal));
+        gruDBObject.put("ResourceID", getResourceIdFromResourcesDB(currentResourceID));
+        gruDBObject.put("UserID", currentUserID);        
+        gruDBObject.put("Timestamp", getDate());
+        this.mongoDB.setGoalToCollection("quidderDB", "gru", gruDBObject);
+
+    }
+
+    public String getGoalIdFromGoalsDB(String goal) {
+        BasicDBObject query = new BasicDBObject();       
+        query.put("Goal", goal);
+        query.put("Timestamp", getDate());
+        this.mongoDB.setGoalToCollection("quidderDB", "goals", query);
+        return this.mongoDB.getFieldFromDB("quidderDB", "goals", query);
+    }
+
+    public String getResourceIdFromResourcesDB(String resource) {
+        BasicDBObject query = new BasicDBObject();        
+        query.put("Resource", resource);
+        query.put("Timestamp", getDate());
+        this.mongoDB.setGoalToCollection("quidderDB", "resources", query);
+        return this.mongoDB.getFieldFromDB("quidderDB", "resources", query);
+    }
+
+    public String getDate() {
+        Date date = new Date();
+        DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+        return dateFormat.format(date);
     }
 }
