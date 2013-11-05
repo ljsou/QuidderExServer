@@ -12,7 +12,7 @@
         <script type="text/javascript" src="js/LoginRadius.js"></script>
         <script src="js/login.js" ></script>
     </h:head>
-    <h:body style="background-image:url(images/world.jpg);background-repeat:no-repeat;background-position:right top;">
+    <h:body style="background-image:url(images/world6.jpg);background-repeat:no-repeat;background-position:left top;">
         <div>
             <h:form id="hidden-from" prependId="false">                                            
                 <h:inputHidden id="provider" value="#{userManagedBean.provider}"></h:inputHidden>
@@ -29,7 +29,10 @@
             <p class="qd-signup-p">Sign up with your…</p>   
             <div id="interfacecontainerdiv" class="interfacecontainerdiv social-networks"></div>                       
         </div>  
-        <div class="qd-pin-box">
+        <div id="pin-box" class="qd-pin-box">
+            <p>Please enter the code shown below in the chrome extension box. Click on <img class="img-ex" src="images/logo.png" width="20" height="20"></img>
+            located in the upper-left corner of the browser window.
+            </p>           
             <p id="userID" class="pin"></p>
         </div>             
     </h:body>
