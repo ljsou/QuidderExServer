@@ -5,6 +5,7 @@
 package com.master.thesis.extension;
 
 import com.master.thesis.control.MongoDB;
+import com.mongodb.BasicDBObject;
 import java.io.IOException;
 import java.io.Serializable;
 import java.util.Enumeration;
@@ -70,23 +71,26 @@ public class QuidderListener implements Serializable {
             //System.out.println(sName + ": " + value);
 
         }
-        if (parameters.get("pin") != null) {
+        if (searchInMongoByID(parameters.get("pin"))) {
             System.out.println(parameters.get("pin") + ", " + parameters.get("url") + ", " + parameters.get("summary"));
-            if (parameters.get("pin") != null && parameters.get("url") == null && parameters.get("summary") == null) {
-                if (validateUser(parameters.get("pin"))) {
-                    this.responseType = 202;
-                }
+            if (parameters.get("url") == null && parameters.get("summary") == null) {
+                System.out.println("-----202-----");
+                this.responseType = 202;
             }
-            if (validateUser(parameters.get("pin")) && parameters.get("url") != null && parameters.get("summary") != null) {
+            if (parameters.get("url") != null && parameters.get("summary") != null) {
+                System.out.println("-----200-----");
                 this.responseType = 200;
             }
         }
     }
 
-    public boolean validateUser(String userID) {
-        String uID = "1234";
+    public boolean searchInMongoByID(String id) {
         boolean result = false;
-        if (userID.equalsIgnoreCase(uID)) {
+        BasicDBObject dBObject = new BasicDBObject("ID", id);
+        String userJson = this.mongoDB.getJsonFromDB("quidderDB", "users", dBObject);
+        System.out.println("User Status: " + userJson);
+        if (!userJson.equalsIgnoreCase("null")) {
+            System.out.println("This user exists in the system (Twitter).");
             result = true;
         }
         return result;

@@ -94,7 +94,7 @@ public class MongoDB {
         DBCollection collection = db.getCollection(collectionName);
         DBObject queryObject = collection.findOne(query);
         String result = String.valueOf(queryObject);
-        System.out.println("Query Result: " + result);
+        //System.out.println("Query Result: " + result);
 
         return result;
     }
